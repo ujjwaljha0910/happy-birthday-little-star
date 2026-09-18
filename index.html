@@ -10,6 +10,20 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{width:100%;min-height:100%;font-family:"DM Sans",sans-serif;background:#020817;color:#fff;overflow-x:hidden}
 body{min-height:100vh}
+
+/* ===== mood backgrounds ===== */
+#mood-layers{position:fixed;inset:0;z-index:-2}
+.mood{position:absolute;inset:0;opacity:0;transition:opacity 1.6s ease;background-size:200% 200%;animation:driftBg 18s ease-in-out infinite}
+.mood.active{opacity:1}
+@keyframes driftBg{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.mood-intro{background:radial-gradient(circle at 30% 20%,#0d1b3d 0%,#020817 55%,#01040c 100%)}
+.mood-tease{background:radial-gradient(circle at 70% 25%,#1b1440 0%,#0a0a1f 55%,#020412 100%)}
+.mood-warm{background:radial-gradient(circle at 50% 15%,#2b1a3d 0%,#150c2b 45%,#050213 100%)}
+.mood-dull{background:linear-gradient(160deg,#1a1a1f 0%,#101013 55%,#08080a 100%);animation-duration:26s;filter:saturate(.55)}
+.mood-bright{background:radial-gradient(circle at 40% 20%,#3d1e57 0%,#1c1042 45%,#050213 100%)}
+.mood-stars{background:radial-gradient(circle at 60% 30%,#12163a 0%,#050818 55%,#010208 100%)}
+.mood-final{background:radial-gradient(circle at 50% 25%,#452a1f 0%,#2a1638 45%,#08040f 100%)}
+
 #stars{position:fixed;inset:0;z-index:0;pointer-events:none}
 .star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 2.5s infinite ease-in-out}
 @keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.35)}}
@@ -17,39 +31,64 @@ body{min-height:100vh}
 @keyframes shoot{0%{left:110%;top:5%;opacity:0}10%{opacity:1}35%{left:-20%;top:55%;opacity:0}100%{left:-20%;top:55%;opacity:0}}
 
 .screen{position:relative;z-index:1;min-height:100vh;display:none;align-items:center;justify-content:center;padding:35px 20px}
-.screen.active{display:flex;animation:fadeIn .8s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+.screen.active{display:flex;animation:fadeIn .9s cubic-bezier(.2,.8,.2,1)}
+@keyframes fadeIn{from{opacity:0;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 
 .card{width:min(850px,100%);text-align:center;padding:45px 25px}
-.script{font-family:"Great Vibes",cursive;font-size:clamp(42px,10vw,78px);font-weight:400}
-h1{font-size:clamp(34px,8vw,62px);line-height:1.1;margin:12px 0}
-h2{font-size:clamp(30px,7vw,52px);margin-bottom:22px}
-.subtitle{color:#c9d4ea;line-height:1.8;max-width:650px;margin:0 auto 28px}
-.btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.09);color:#fff;padding:14px 24px;border-radius:999px;font-size:16px;cursor:pointer;backdrop-filter:blur(10px);transition:.25s}
-.btn:hover{transform:translateY(-3px);background:rgba(255,255,255,.16)}
-.meme{width:min(360px,90%);height:220px;margin:25px auto;border-radius:18px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);font-size:21px;color:#dbe7ff}
+.script{font-family:"Great Vibes",cursive;font-size:clamp(42px,10vw,78px);font-weight:400;opacity:0;animation:softIn .9s ease forwards .1s}
+h1{font-size:clamp(34px,8vw,62px);line-height:1.1;margin:12px 0;opacity:0;animation:softIn .9s ease forwards .25s}
+h2{font-size:clamp(30px,7vw,52px);margin-bottom:22px;opacity:0;animation:softIn .9s ease forwards .2s}
+@keyframes softIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.subtitle{color:#c9d4ea;line-height:1.8;max-width:650px;margin:0 auto 28px;opacity:0;animation:softIn .9s ease forwards .4s}
+.btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.09);color:#fff;padding:14px 24px;border-radius:999px;font-size:16px;cursor:pointer;backdrop-filter:blur(10px);transition:transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease,box-shadow .3s ease}
+.btn:hover{transform:translateY(-3px);background:rgba(255,255,255,.16);box-shadow:0 10px 30px -10px rgba(255,255,255,.25)}
+.btn:active{transform:translateY(-1px) scale(.98)}
 .password{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
-input{width:210px;padding:14px 17px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.35);color:#fff;text-align:center;font-size:18px;letter-spacing:3px;outline:none}
-.error{color:#ffb4b4;min-height:25px;margin-top:10px}
+input{width:210px;padding:14px 17px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.35);color:#fff;text-align:center;font-size:18px;letter-spacing:3px;outline:none;transition:border-color .3s ease,box-shadow .3s ease}
+input:focus{border-color:rgba(255,255,255,.6);box-shadow:0 0 0 4px rgba(255,255,255,.08)}
+.error{color:#ffb4b4;min-height:25px;margin-top:10px;transition:color .3s ease}
 .story{text-align:left;max-width:720px;margin:auto}
-.story p{font-size:18px;line-height:2;color:#dce5f5;margin:15px 0}
-.highlight{text-align:center;font-size:24px!important;color:#fff!important;margin:28px 0!important}
+.story p{font-size:18px;line-height:2;color:#dce5f5;margin:15px 0;opacity:0;transform:translateY(10px);animation:lineIn .8s ease forwards}
+.story p:nth-child(1){animation-delay:.15s}
+.story p:nth-child(2){animation-delay:.3s}
+.story p:nth-child(3){animation-delay:.45s}
+.story p:nth-child(4){animation-delay:.6s}
+.story p:nth-child(5){animation-delay:.75s}
+.story p:nth-child(6){animation-delay:.9s}
+.story p:nth-child(7){animation-delay:1.05s}
+.story p:nth-child(8){animation-delay:1.2s}
+.story p:nth-child(9){animation-delay:1.35s}
+@keyframes lineIn{to{opacity:1;transform:translateY(0)}}
+.highlight{text-align:center;font-size:24px!important;color:#fff!important;margin:28px 0!important;text-shadow:0 0 18px rgba(255,255,255,.25)}
 .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);margin:35px 0}
 .nav{display:flex;justify-content:center;margin-top:35px}
 .star-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
-.star-btn{padding:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:18px;color:#fff;cursor:pointer;text-align:left}
-.star-btn:hover{background:rgba(255,255,255,.11)}
-.reveal{display:none;margin-top:12px;color:#dce5f5;line-height:1.7}
-.star-btn.open .reveal{display:block}
+.star-btn{padding:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:18px;color:#fff;cursor:pointer;text-align:left;transition:background .3s ease,transform .3s ease,border-color .3s ease}
+.star-btn:hover{background:rgba(255,255,255,.11);transform:translateY(-2px);border-color:rgba(255,255,255,.3)}
+.reveal{max-height:0;overflow:hidden;opacity:0;color:#dce5f5;line-height:1.7;transition:max-height .5s ease,opacity .45s ease,margin-top .5s ease}
+.star-btn.open .reveal{max-height:200px;opacity:1;margin-top:12px}
 .final h1{font-family:"Great Vibes",cursive;font-size:clamp(55px,13vw,100px);font-weight:400}
 .final p{font-size:18px;line-height:2;color:#dce5f5;max-width:700px;margin:20px auto}
-.signature{font-family:"Great Vibes",cursive;font-size:42px;margin-top:30px}
+.signature{font-family:"Great Vibes",cursive;font-size:42px;margin-top:30px;opacity:0;animation:softIn 1s ease forwards 1.6s}
 @media(max-width:600px){
  .card{padding:30px 10px}.story p{font-size:16px;line-height:1.9}.star-list{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+ *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 </style>
 </head>
 <body>
+
+<div id="mood-layers">
+  <div class="mood mood-intro active" data-mood="intro"></div>
+  <div class="mood mood-tease" data-mood="tease"></div>
+  <div class="mood mood-warm" data-mood="warm"></div>
+  <div class="mood mood-dull" data-mood="dull"></div>
+  <div class="mood mood-bright" data-mood="bright"></div>
+  <div class="mood mood-stars" data-mood="stars"></div>
+  <div class="mood mood-final" data-mood="final"></div>
+</div>
 
 <div id="stars"></div>
 
@@ -69,7 +108,6 @@ input{width:210px;padding:14px 17px;border-radius:12px;border:1px solid rgba(255
     <div class="script">But wait...</div>
     <h2>Tu su vichari rahi hati? 😭</h2>
     <p class="subtitle">Ke bas button dabavyu ane andar entry mali jase?</p>
-    <div class="meme">[ Ahiya tamaro favourite meme mukjo 😂 ]</div>
     <h2 style="font-size:30px">NOOOO 😭</h2>
     <p class="subtitle">Every little star needs a password. 🔐</p>
     <p class="subtitle"><i>(Clue: remember the date when it all started...<br>our story began here.)</i></p>
@@ -217,9 +255,26 @@ for(let i=0;i<3;i++){
   starBox.appendChild(sh);
 }
 
+// map each screen to the mood/background that matches its emotional tone
+const moods={1:"intro",2:"tease",3:"warm",4:"dull",5:"bright",6:"bright",7:"stars",8:"final"};
+
+function setMood(name){
+  document.querySelectorAll(".mood").forEach(m=>{
+    m.classList.toggle("active", m.dataset.mood===name);
+  });
+}
+
 function showScreen(n){
   document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
-  document.getElementById("screen"+n).classList.add("active");
+  const target=document.getElementById("screen"+n);
+  target.classList.add("active");
+  setMood(moods[n]||"intro");
+  // restart the paragraph reveal animation each time a screen opens
+  target.querySelectorAll(".story p, .script, h1, h2, .subtitle, .signature").forEach(el=>{
+    el.style.animation="none";
+    void el.offsetWidth;
+    el.style.animation="";
+  });
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function checkPassword(){
