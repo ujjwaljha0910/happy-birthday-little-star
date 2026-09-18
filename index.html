@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Little Star ⭐</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:100%;min-height:100%;font-family:"DM Sans",sans-serif;background:#020817;color:#fff;overflow-x:hidden}
+body{min-height:100vh}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 2.5s infinite ease-in-out}
+@keyframes twinkle{0%,100%{opacity:.25;transform:scale(.8)}50%{opacity:1;transform:scale(1.35)}}
+.shooting{position:absolute;width:100px;height:2px;background:linear-gradient(90deg,transparent,#fff,transparent);transform:rotate(-35deg);animation:shoot 4s linear infinite;opacity:0}
+@keyframes shoot{0%{left:110%;top:5%;opacity:0}10%{opacity:1}35%{left:-20%;top:55%;opacity:0}100%{left:-20%;top:55%;opacity:0}}
+
+.screen{position:relative;z-index:1;min-height:100vh;display:none;align-items:center;justify-content:center;padding:35px 20px}
+.screen.active{display:flex;animation:fadeIn .8s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+
+.card{width:min(850px,100%);text-align:center;padding:45px 25px}
+.script{font-family:"Great Vibes",cursive;font-size:clamp(42px,10vw,78px);font-weight:400}
+h1{font-size:clamp(34px,8vw,62px);line-height:1.1;margin:12px 0}
+h2{font-size:clamp(30px,7vw,52px);margin-bottom:22px}
+.subtitle{color:#c9d4ea;line-height:1.8;max-width:650px;margin:0 auto 28px}
+.btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.09);color:#fff;padding:14px 24px;border-radius:999px;font-size:16px;cursor:pointer;backdrop-filter:blur(10px);transition:.25s}
+.btn:hover{transform:translateY(-3px);background:rgba(255,255,255,.16)}
+.meme{width:min(360px,90%);height:220px;margin:25px auto;border-radius:18px;border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.07);font-size:21px;color:#dbe7ff}
+.password{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:25px 0}
+input{width:210px;padding:14px 17px;border-radius:12px;border:1px solid rgba(255,255,255,.25);background:rgba(0,0,0,.35);color:#fff;text-align:center;font-size:18px;letter-spacing:3px;outline:none}
+.error{color:#ffb4b4;min-height:25px;margin-top:10px}
+.story{text-align:left;max-width:720px;margin:auto}
+.story p{font-size:18px;line-height:2;color:#dce5f5;margin:15px 0}
+.highlight{text-align:center;font-size:24px!important;color:#fff!important;margin:28px 0!important}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);margin:35px 0}
+.nav{display:flex;justify-content:center;margin-top:35px}
+.star-list{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.star-btn{padding:20px;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);border-radius:18px;color:#fff;cursor:pointer;text-align:left}
+.star-btn:hover{background:rgba(255,255,255,.11)}
+.reveal{display:none;margin-top:12px;color:#dce5f5;line-height:1.7}
+.star-btn.open .reveal{display:block}
+.final h1{font-family:"Great Vibes",cursive;font-size:clamp(55px,13vw,100px);font-weight:400}
+.final p{font-size:18px;line-height:2;color:#dce5f5;max-width:700px;margin:20px auto}
+.signature{font-family:"Great Vibes",cursive;font-size:42px;margin-top:30px}
+@media(max-width:600px){
+ .card{padding:30px 10px}.story p{font-size:16px;line-height:1.9}.star-list{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="stars"></div>
+
+<!-- SCREEN 1 -->
+<section class="screen active" id="screen1">
+  <div class="card">
+    <div class="script">Enter the world</div>
+    <h1>created specially<br>for my little star ⭐</h1>
+    <p class="subtitle">Ek nano sa world... just for you.<br>Memories, thodi masti, thoda drama ane ghanu badhu dil mathi. 🤍</p>
+    <button class="btn" onclick="showScreen(2)">✨ Click here to enter ✨</button>
+  </div>
+</section>
+
+<!-- SCREEN 2 -->
+<section class="screen" id="screen2">
+  <div class="card">
+    <div class="script">But wait...</div>
+    <h2>Tu su vichari rahi hati? 😭</h2>
+    <p class="subtitle">Ke bas button dabavyu ane andar entry mali jase?</p>
+    <div class="meme">[ Ahiya tamaro favourite meme mukjo 😂 ]</div>
+    <h2 style="font-size:30px">NOOOO 😭</h2>
+    <p class="subtitle">Every little star needs a password. 🔐</p>
+    <p class="subtitle"><i>(Clue: remember the date when it all started...<br>our story began here.)</i></p>
+    <div class="password">
+      <input id="pass" inputmode="numeric" maxlength="8" placeholder="DDMMYYYY">
+      <button class="btn" onclick="checkPassword()">Unlock ⭐</button>
+    </div>
+    <div class="error" id="error"></div>
+  </div>
+</section>
+
+<!-- SCREEN 3 -->
+<section class="screen" id="screen3">
+  <div class="card">
+    <div class="script">The Beginning</div>
+    <div class="story">
+      <p><b>8 July 2025.</b></p>
+      <p>Honestly kahu toh mane ae divase khabar j nathi hati ke aa date ek divas aatli special bani jase.</p>
+      <p>Somewhere between our conversations, stupid jokes, random moments ane badhi nani nani vastu... tu dhime dhime mari life ma ek special person bani gai.</p>
+      <p>And maybe that's why aa little world exist kare che.</p>
+      <p>Kem ke ketlak loko apni story no part kyare bani gaya e apne khabar pan nathi padti.</p>
+      <p class="highlight">And somehow...<br><b>tu mari story no ek important part bani gai. ⭐</b></p>
+    </div>
+    <div class="nav"><button class="btn" onclick="showScreen(4)">Continue →</button></div>
+  </div>
+</section>
+
+<!-- SCREEN 4 -->
+<section class="screen" id="screen4">
+  <div class="card">
+    <div class="script">The Clash</div>
+    <div class="story">
+      <p>Have story ma ek evo part pan aavyo je mane personally bilkul proud feel nathi karavto.</p>
+      <p>Ek time evo aavyo jyare hu tari sathe vaat karvanu bandh kari didhu. Ek-be divas nahi... ek-be week pan nahi...</p>
+      <p class="highlight"><b>Almost 3–4 months.</b></p>
+      <p>Ane hu aa mate excuses banava nathi mangto. Mane khabar che ke hu things better handle kari sakto hato.</p>
+      <p>So... <b>I'm genuinely sorry.</b></p>
+      <p>Sorry for the distance. Sorry for the silence. Ane sorry jo aa badha time ma tane kyarey evu feel thayu hoy ke tu important nathi.</p>
+      <p class="highlight">Because the truth is...<br><b>tu important hati. Tu che. 🤍</b></p>
+      <p style="text-align:center">Ketlik vaar stars clouds pachhad disappear thai jay che.<br>It doesn't mean they stopped shining. ⭐</p>
+    </div>
+    <div class="nav"><button class="btn" onclick="showScreen(5)">Continue →</button></div>
+  </div>
+</section>
+
+<!-- SCREEN 5 -->
+<section class="screen" id="screen5">
+  <div class="card">
+    <div class="script">A New Beginning</div>
+    <div class="story">
+      <p><b>And then came December.</b></p>
+      <p>Somehow apde fari vaat karvanu start karyu.</p>
+      <p>Ane aa vakhat hu genuinely try karva mangto hato.</p>
+      <p>Try to bring back the conversations.<br>Try to bring back the stupid jokes.<br>Try to make things feel normal again.</p>
+      <p class="highlight">And most importantly...<br><b>try to keep you in my life.</b></p>
+      <p>Things obviously magically perfect nathi thai gaya.</p>
+      <p>December thi aaj sudhi apda vachche conflicts pan thaya che. Arguments pan thaya che. Ek bijane irritate pan karya che. 😂</p>
+      <p>Pan badha badhu hova chhata...</p>
+      <p class="highlight"><b>We stayed.</b></p>
+    </div>
+    <div class="nav"><button class="btn" onclick="showScreen(6)">Continue →</button></div>
+  </div>
+</section>
+
+<!-- SCREEN 6 -->
+<section class="screen" id="screen6">
+  <div class="card">
+    <div class="script">And somehow...</div>
+    <h2>We're still here. ⭐</h2>
+    <div class="story">
+      <p>Apde laugh karyu che. Argue karyu che. Misunderstand pan karyu che. Ghani badhi memories banavi che.</p>
+      <p>Ane aa badha vachche ek vastu mane game che...</p>
+      <p class="highlight"><b>Apde still ahiye.</b></p>
+      <p>Mane future ma shu thase e khabar nathi. Ketla arguments thase e pan khabar nathi. Ketli random late-night conversations thase e pan khabar nathi.</p>
+      <p>Pan hu hope karu chu ke aa friendship aavi j continue thay.</p>
+      <p>We keep choosing to stay. We keep making memories. Ane years pachi jyare aa badhu yaad kariye tyare apne smile kariye.</p>
+      <p class="highlight"><b>Here's to our next chapters. 🤍</b></p>
+    </div>
+    <div class="nav"><button class="btn" onclick="showScreen(7)">Little stars for you →</button></div>
+  </div>
+</section>
+
+<!-- SCREEN 7 -->
+<section class="screen" id="screen7">
+  <div class="card">
+    <div class="script">A few things...</div>
+    <h2>just for you ⭐</h2>
+    <p class="subtitle">Aa stars click kar. Each one has something I wanted to tell you.</p>
+
+    <div class="star-list">
+      <button class="star-btn" onclick="this.classList.toggle('open')">
+        ⭐ Something I admire
+        <div class="reveal">Tari andar ek alag j energy che. Tu je rite loko ne care kare che ane potani way ma badhu handle kare che... that's something I genuinely admire.</div>
+      </button>
+      <button class="star-btn" onclick="this.classList.toggle('open')">
+        🌙 One thing I'll remember
+        <div class="reveal">Apdi random conversations. Sometimes topic su hato e yaad nathi hotu... pan vaat karta karta time kyare nikli gayo e yaad rahe che.</div>
+      </button>
+      <button class="star-btn" onclick="this.classList.toggle('open')">
+        ✨ Something I don't say enough
+        <div class="reveal">You matter to me. Simple. Maybe hu aa vaat enough bolto nathi... but I really mean it.</div>
+      </button>
+      <button class="star-btn" onclick="this.classList.toggle('open')">
+        💫 One wish for you
+        <div class="reveal">I hope tane life ma ae badhu male je tu deserve kare che. Happiness, peace, success ane ghana badha reasons to smile.</div>
+      </button>
+    </div>
+
+    <div class="nav"><button class="btn" onclick="showScreen(8)">One last thing... ⭐</button></div>
+  </div>
+</section>
+
+<!-- SCREEN 8 -->
+<section class="screen final" id="screen8">
+  <div class="card">
+    <div class="script">And finally...</div>
+    <h1>Happy Birthday<br>My Little Star ⭐</h1>
+    <p>I don't know if a website can really explain how much a person means to you.</p>
+    <p>But I wanted to at least try.</p>
+    <p>Thank you for being a part of my life. Thank you for all the memories we've made. Thank you for staying through the good and the bad.</p>
+    <p>I genuinely hope aa new year of your life tane happiness, peace, success ane ghana badha reasons to smile aape.</p>
+    <p class="highlight"><b>Keep shining.<br>Keep being you.</b></p>
+    <p>Ane jyare life thodi dark lage ne...</p>
+    <p class="highlight"><b>remember that even the smallest stars can light up a really big sky. ⭐</b></p>
+    <p><b>Happy Birthday, my little star.</b><br>Here's to another chapter of our story. 🤍</p>
+    <div class="signature">— Ujjwal</div>
+  </div>
+</section>
+
+<script>
+const starBox=document.getElementById("stars");
+for(let i=0;i<95;i++){
+  const s=document.createElement("span");
+  s.className="star";
+  const size=Math.random()*3+1;
+  s.style.width=size+"px"; s.style.height=size+"px";
+  s.style.left=Math.random()*100+"%"; s.style.top=Math.random()*100+"%";
+  s.style.animationDelay=(Math.random()*3)+"s";
+  starBox.appendChild(s);
+}
+for(let i=0;i<3;i++){
+  const sh=document.createElement("span");
+  sh.className="shooting";
+  sh.style.animationDelay=(i*2.2)+"s";
+  starBox.appendChild(sh);
+}
+
+function showScreen(n){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById("screen"+n).classList.add("active");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function checkPassword(){
+  const value=document.getElementById("pass").value.trim();
+  const error=document.getElementById("error");
+  if(value==="872025"){
+    error.textContent="ACCESS GRANTED ⭐";
+    error.style.color="#fff";
+    setTimeout(()=>showScreen(3),650);
+  }else{
+    error.textContent="Areee madam ji 😭 clue fari thi vachho...";
+  }
+}
+document.getElementById("pass").addEventListener("keydown",e=>{
+  if(e.key==="Enter") checkPassword();
+});
+</script>
+</body>
+</html>
